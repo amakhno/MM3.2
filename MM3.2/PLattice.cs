@@ -10,28 +10,51 @@ namespace MM3._2
 {
     class PLattice
     {
+        //Служебная переменная
         public int PClustNum;
+        //Словарь, содержащий номер кластера и количество его элементов
         public Dictionary<int, int> Clusters;
+        //Словарь, содержазий номер кластера и его цвет
         public Dictionary<int, Color> ClustersClr;
+        //Число кластеров
         public int CountClusters = 0;
+        //Размер перколяционного кластера
         public int SizePerkClust = 0;
+        //Бесполезные методы
         public delegate void Fun(string t);
         public event Fun WriteOutText;
+
+        //Первоначальная размерность решетки
         public int n;
+        //Начальное заполнение решетки
         int[,] Lattice;
 
+        //Распределение решетки по цветам
         public int[,] СlusterMap;
+        //Элемент Graphics для рисования на нем
         Graphics GraphPane;
+        //Генераторы случайных чисел
         Random RndForValue;
-        public int SizeRect = 1;
-        Bitmap Pane;
-        PictureBox PicBox;
-        List<Color> ListClr;
-        public int Count;
-
-
         Random RndForColor;
+
+        //Размер одного квадрата
+        public int SizeRect = 1;
+
+        //Рисование на Bitmap
+        Bitmap Pane;
+
+        //Приходящий из формы PictureBox
+        PictureBox PicBox;
+
+        //Массив цветов, генерируемый случайно
+        List<Color> ListClr;
+
+        //Количество узлов
+        public int Count;
+        
         List<int> CorrectListNum;
+
+
         public PLattice(PictureBox PB, int SizeLattice)
         {
 
@@ -46,10 +69,9 @@ namespace MM3._2
             SizeRect = (int)(PB.Height / (n));
             Lattice = new int[n + 1, n + 1];
         }
+
         public void PutLattice(double P)
         {
-
-
             for (int i = 1; i <= n; i++)
             {
                 for (int j = 1; j <= n; j++)
@@ -62,14 +84,10 @@ namespace MM3._2
                     }
                 }
             }
-
-
-
-
         }
+
         public void PutLattice(int C)
         {
-
             int a;
             int b;
             for (int i = 0; i < C; i++)
@@ -81,11 +99,10 @@ namespace MM3._2
                     Count++;
                     Lattice[a, b] = 1;
                 }
-                // GraphPane.FillRectangle(Brushes.Black, SizeRect * Rnd.Next(0, n), SizeRect * Rnd.Next(0, n), SizeRect, SizeRect);
             }
             WriteOutText("Добавлено");
-
         }
+
         public void Clear()
         {
             Count = 0;
@@ -94,17 +111,20 @@ namespace MM3._2
 
 
         }
+
         public void ClearPicBox()
         {
             Pane = new Bitmap(PicBox.Height, PicBox.Width);
             GraphPane = Graphics.FromImage(Pane);
             PicBox.Image = Pane;
         }
+
         public void ClearPrint()
         {
             ClearPicBox();
             PrintLattice();
         }
+
         public void PrintLattice()
         {
             for (int i = 0; i < n; i++)
@@ -119,6 +139,7 @@ namespace MM3._2
             PicBox.Refresh();
             PicBox.Image = Pane;
         }
+
         public void MarkingСluster()
         {
 
